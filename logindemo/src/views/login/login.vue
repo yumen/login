@@ -49,7 +49,8 @@
                     params.append('password', this.password);
                     this.axios.post("http://127.0.0.1:5000/login",params).then((res)=>{
                         console.log(res.data)
-                         console.log(typeof res.data)
+                        console.log(typeof res.data)
+                        console.log(res) 
                         if(res.data==-1){
 //                          alert("aaaaa")
                             this.tishi = " 该用户不存在"
@@ -60,12 +61,18 @@
                         }else if(res.data == "admin"){
                             this.$router.push("/main")
                         }else{
+                        
                             this.tishi = "登入成功"
                             this.showTishi = true
-                            setCookie("username",this.username,1000*60)
+                            let data = res.data;
+                            this.token = data["token"]
+                            
+                            //setCookie("username",this.username,1000*60)
+                            //setCookie("token",this.token,1000*60)
                             setTimeout(function(){
                                 this.$router.push("/home")
                             }.bind(this),1000)
+                           
                         }
                     })
                 }

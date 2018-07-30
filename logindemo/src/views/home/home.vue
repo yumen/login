@@ -15,8 +15,10 @@ export default{
     }
   },
   mounted () {
-    let uname = getCookie('username')
-    this.name = uname
+    //let uname = getCookie('username')
+    //this.name = uname
+    //setCookie("username",this.username,1000*60)
+    //setCookie("token",this.token,1000*60)  
     if (uname == '') {
       this.$router.push('/')
     }
