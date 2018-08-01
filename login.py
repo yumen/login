@@ -20,6 +20,7 @@ secret = "secret_test123"
 
 ss = {"test":"test123"} 
 
+
 def verify_bearer_token(token):
     #  如果在生成token的时候使用了aud参数，那么校验的时候也需要添加此参数
     p = jwt.decode(token, secret, audience='www.gusibi.com', algorithms=['HS256'])
@@ -54,7 +55,7 @@ def login():
             token = jwt.encode(payload, secret, algorithm='HS256')
             response = make_response(jsonify({'token':token.decode('utf-8')}))
             
-            response.set_cookie('username','usernamx')
+            response.set_cookie('username',usernamx)
             response.set_cookie('token',token.decode('utf-8'))
             #response.headers['token'] = 456
 
@@ -70,7 +71,21 @@ def getmain():
     print(verify_bearer_token(request.cookies.get('token')))
     if request.method == 'GET':
         return json.dumps([user for user in ss.keys()])
- 
+
+@app.route("/order/<page>",methods=["GET"])
+def order(page):
+    page = int(page)
+    order_list = [  
+    {"num":"123213213231","amount":1},
+    {"num":"123213213232","amount":2},
+    ]
+    order_list = [{"num":"1000%d" % i, "amount":i} for i in range(100)]
+    total = len(order_list)
+    print(request.headers.get("Cookie"))
+    if request.method == 'GET':
+        return json.dumps({"total":total,"list":order_list[(page-1)*10:page*10]})
+        
+        
 @app.route("/register",methods=["POST"])
 def register():
     if request.method == 'POST' and request.form.get('username') and request.form.get('password'):

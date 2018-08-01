@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import Login from '@/views/login/login.vue'
 import Main from '@/views/main/main.vue'
 import Home from '@/views/home/home.vue'
+import Order from '@/views/order/order.vue'
+
 
 Vue.use(Router)
 
@@ -23,6 +25,11 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home
-    }
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order
+    }    
   ]
 })
